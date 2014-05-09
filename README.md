@@ -29,12 +29,16 @@ Hint for Ubuntu users:
 The required perl modules can be installed with the packages libgetopt-long-descriptive-perl and libwww-mechanize-perl
 
 Syntax of arguments:
+
 To specify username from outside the script:
 --username
+
 To specify username from outside the script:
 --password
+
 Verbose output:
 --verbose
+
 Valdiate login data only, don't do any checks:
 --validate
 (Will return 0 in case of success, other return codes imply failure)
