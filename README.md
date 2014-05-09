@@ -26,20 +26,20 @@ The send mark script checks the database for the a mark with the not_informed fl
 
 ##Documentation##
 
-The backend script require Perl:
+The backend script requires Perl:
 ```sudo apt-get install libgetopt-long-descriptive-perl libwww-mechanize-perl```
 
 ###CLI###
 
 Example:
-```./cis_check.pl  --validate --username XXXXX --password PASSWORD```
+```./cis_check.pl  --validate --username [user] --password [pass]```
 
 ```
 Options:
---username      To specify username from outside the script
---password      To specify username from outside the script
---verbose       Verbose output
---validate      Valdiate login data only, don't do any checks (Will return 0 in case of success, other return codes imply failure)
+--username      to specify username from outside the script
+--password      to specify username from outside the script
+--verbose       verbose output
+--validate      valdiate login data only, don't do any checks (Will return 0 in case of success, other return codes imply failure)
 ```
 
 
