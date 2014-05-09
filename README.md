@@ -24,3 +24,20 @@ The send mark script checks the database for the a mark with the not_informed fl
 | email         | data          |
                 | is_informed   |
 
+##Documentation##
+Hint for Ubuntu users:
+The required perl modules can be installed with the packages libgetopt-long-descriptive-perl and libwww-mechanize-perl
+
+Syntax of arguments:
+To specify username from outside the script:
+--username
+To specify username from outside the script:
+--password
+Verbose output:
+--verbose
+Valdiate login data only, don't do any checks:
+--validate
+(Will return 0 in case of success, other return codes imply failure)
+
+Example:
+./cis_check.pl  --validate --username XXXXX --password PASSWORD
