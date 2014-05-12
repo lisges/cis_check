@@ -29,8 +29,11 @@ The send mark script checks the database for the a mark with the not_informed fl
 
 ##Documentation##
 
-The backend script requires Perl:
-```sudo apt-get install libgetopt-long-descriptive-perl libwww-mechanize-perl```
+The backend script requires the following PERL modules:
+```WWW::Mechanize, Getopt::Long ```
+
+For Ubuntu users:
+```sudo aptitude install libgetopt-long-descriptive-perl libwww-mechanize-perl```
 
 ###CLI###
 
