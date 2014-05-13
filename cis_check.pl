@@ -9,18 +9,14 @@ binmode(STDOUT, ":utf8");
 #####################################
 # INITIALIZE
 #####################################
-my ($password, $username) = "";
+my ($password, $username, $realname, $nakmail) = "";
 my ($verbose, $validate, $devmode) = 0; # Command line options
 GetOptions ('verbose' => \$verbose, 'validate' => \$validate, 'password=s' => \$password, 'username=s' => \$username, 'devmode' => \$devmode);
 my (%examsCredit, %examsGrade) = ();
 # %examsCredit: Key: exam name, Value: cp
 # %examsGrade: Key: exam name, Value: grade 
 my @sanitizeMe;
-if ($devmode){
-$password = read_password('Enter password: ');
-}
-
-
+$password = read_password('Enter password: ') if ($devmode);
 print "Initialize WebAgent...\n" if ($verbose);
 my $mech = WWW::Mechanize->new();
 $mech -> cookie_jar(HTTP::Cookies->new());
@@ -34,11 +30,13 @@ $mech -> field ('pass' => $password);
 print "Trying to login...\n" if ($verbose);
 $mech -> submit();
 exit(0) if ($validate);
-
 print "Fetching results...\n" if ($verbose);
 # Get data and regex pairs into hash map:
 $mech->get( "https://cis.nordakademie.de/pruefungsamt/pruefungsergebnisse/" );
 @sanitizeMe = $mech->content =~ /450><p class='noten_noten'>(.*?)<.*?value='([1-5]\.[0-7])/sg;
+($realname) = $mech->content  =~ /als <b>(.+?)</s;
+$mech->get( "https://cis.nordakademie.de/nacommunity/mein-profil/" );
+($nakmail) = $mech->content =~ />(.+?@.+?)</;
 # Unfortunately the exam names differ, e.g. "Programmierung1" vs. "Programmierung 1"
 for (my $i=0; $i <= $#sanitizeMe; $i++)
 {
@@ -47,6 +45,7 @@ for (my $i=0; $i <= $#sanitizeMe; $i++)
 %examsGrade = @sanitizeMe;
 $mech->get( "https://cis.nordakademie.de/pruefungsamt/studienplan/" );
 %examsCredit = $mech->content =~ /g'>&nbsp;&nbsp;(.*?)<\/td>.*?cp.*?<span>([1-9])</g;
+print "Hallo, $realname ($nakmail)!\n";
 printf("Dein simpler Durchschnitt liegt bei: %.3f!\nBisher wurden %d Klausuren geschrieben.\n\nDeine Noten im Detail:\n\n", sum(values(%examsGrade)) / keys( %examsGrade ), keys( %examsGrade )+0);
 printf "%-56s %-12s %s\n", "Fach:", "Note:", "Credits:";
 foreach my $gradeKey ( keys %examsGrade )
