@@ -4,17 +4,23 @@ use strict;
 use List::Util qw(sum);
 use WWW::Mechanize;
 use Getopt::Long;
+use Term::ReadPassword;
 binmode(STDOUT, ":utf8");
 #####################################
 # INITIALIZE
 #####################################
 my ($password, $username) = "";
-my ($verbose, $validate) = 0; # Command line options
-GetOptions ('verbose' => \$verbose, 'validate' => \$validate, 'password=s' => \$password, 'username=s' => \$username);
+my ($verbose, $validate, $devmode) = 0; # Command line options
+GetOptions ('verbose' => \$verbose, 'validate' => \$validate, 'password=s' => \$password, 'username=s' => \$username, 'devmode' => \$devmode);
 my (%examsCredit, %examsGrade) = ();
 # %examsCredit: Key: exam name, Value: cp
 # %examsGrade: Key: exam name, Value: grade 
 my @sanitizeMe;
+if ($devmode){
+$password = read_password('Enter password: ');
+}
+
+
 print "Initialize WebAgent...\n" if ($verbose);
 my $mech = WWW::Mechanize->new();
 $mech -> cookie_jar(HTTP::Cookies->new());
