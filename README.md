@@ -7,10 +7,10 @@ This Repo provides the Backend for the CIS Check website. The scripts here will 
 ##Documentation##
 
 The backend script requires the following PERL modules:
-```WWW::Mechanize, Getopt::Long ```
+```WWW::Mechanize, Getopt::Long, Term::ReadPassword```
 
 For Ubuntu users:
-```sudo aptitude install libgetopt-long-descriptive-perl libwww-mechanize-perl```
+```sudo aptitude install libgetopt-long-descriptive-perl libwww-mechanize-perl libterm-readpassword-perl```
 
 ###CLI###
 
@@ -23,6 +23,7 @@ Options:
 --password      to specify username from outside the script
 --verbose       verbose output
 --validate      valdiate login data only, don't do any checks (Will return 0 in case of success, other return codes imply failure)
+--devmode	Interactive password prompt
 ```
 
 
