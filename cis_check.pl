@@ -48,6 +48,8 @@ $mech->get( "https://cis.nordakademie.de/pruefungsamt/studienplan/" );
 print "Hallo, $realname ($nakmail)!\n";
 printf("Dein simpler Durchschnitt liegt bei: %.3f!\nBisher wurden %d Klausuren geschrieben.\n\nDeine Noten im Detail:\n\n", sum(values(%examsGrade)) / keys( %examsGrade ), keys( %examsGrade )+0);
 printf "%-56s %-12s %s\n", "Fach:", "Note:", "Credits:";
+my $averageRaw = 0;
+my $totalCredits = 0;
 foreach my $gradeKey ( keys %examsGrade )
 {
 	my $credit = 0;
@@ -55,5 +57,14 @@ foreach my $gradeKey ( keys %examsGrade )
 	{	
 		$credit = $examsCredit{$gradeKey};
 	}
+	unless ($examsGrade{$gradeKey} > 4.0)
+	{
+	$averageRaw = $averageRaw + $examsGrade{$gradeKey} * $credit;
+	$totalCredits = $totalCredits + $credit;
+	#print "Aktueller Rohdurchschnitt: $averageRaw Credits total: $totalCredits\n" if($verbose);
+	}
 	printf "%-56s %-12.1f %d\n", $gradeKey, $examsGrade{$gradeKey},$credit;
 }
+my $average = $averageRaw / $totalCredits;
+print "\nDein gewichteter Durchschnit: $average \n";
+
