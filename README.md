@@ -1,7 +1,7 @@
-CIS Check Backend
+CIS Check Information Gatherer
 =========
 
-This Repo provides the Backend for the CIS Check website. The scripts here will kind of provide a API for the CIS, since there is none as of right now. This document shall specify the functions anda database structure needed.
+This script provides an "API" for the CIS, since there is none as of right now. This document shall specify the functions.
 
 
 ##Documentation##
